@@ -2,6 +2,7 @@ package com.musalasoft.dronetask.application;
 
 import com.musalasoft.dronetask.application.exception.DroneWeightLimitExceededException;
 import com.musalasoft.dronetask.application.exception.MedicationNotFoundException;
+import com.musalasoft.dronetask.domain.drone.Drone;
 import com.musalasoft.dronetask.domain.drone.State;
 import com.musalasoft.dronetask.domain.dronemedicationbundle.DroneMedicationBundle;
 import com.musalasoft.dronetask.domain.dronemedicationbundle.DroneMedicationBundleRepository;
@@ -46,12 +47,18 @@ public class DispatchService {
 					return entity;
 				});
 
-		if (savedEntity.getMedications().stream().mapToInt(Medication::getWeight).sum()
-				+ medication.getWeight() > savedEntity.getDrone().getWeightLimit()) {
+		Drone drone = savedEntity.getDrone();
+		int totalWeight = savedEntity.getMedications().stream().mapToInt(Medication::getWeight).sum()
+				+ medication.getWeight();
+		if (totalWeight > savedEntity.getDrone().getWeightLimit()) {
 			throw new DroneWeightLimitExceededException();
+		}
+		else if (totalWeight == savedEntity.getDrone().getWeightLimit() || drone.getBatteryCapacity() <= 25) {
+			drone.setState(State.LOADED);
 		}
 
 		savedEntity.getMedications().add(medication.toEntity());
+
 		return DroneMedicationBundleDTO.fromEntity(this.droneMedicationBundleRepository.save(savedEntity));
 	}
 

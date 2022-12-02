@@ -18,7 +18,7 @@ public class DispatchController {
 	}
 
 	/**
-	 * -loading a drone with medication items
+	 * -loading a drone with medication item
 	 */
 	@PutMapping("/{droneSerialNumber}")
 	public ResponseEntity<DroneMedicationBundleDTO> addMedicationToDrone(@RequestBody MedicationDTO medication,
