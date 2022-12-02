@@ -1,4 +1,9 @@
-
+#spring:
+#  datasource:
+#    url: jdbc:mysql://drone-task.cbtqdbgj9bqg.us-east-1.rds.amazonaws.com:3306/drone
+#    username: admin
+#    password: 2zCRAge4GzzHlyCin6cG
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/drone
@@ -12,3 +17,8 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+aws:
+  key:
+    id: AKIA3DQATDDUWIJPDYM6
+    secret: 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
