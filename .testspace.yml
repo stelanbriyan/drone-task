@@ -1,0 +1,4 @@
+release:
+  - "master"
+manual:
+  publish_path: "manual tests"
