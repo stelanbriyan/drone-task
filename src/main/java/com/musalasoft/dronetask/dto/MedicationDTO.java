@@ -1,6 +1,7 @@
 package com.musalasoft.dronetask.dto;
 
 import com.musalasoft.dronetask.domain.medication.Medication;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,11 +11,14 @@ import javax.validation.constraints.Pattern;
 @Data
 public class MedicationDTO {
 
+	@ApiModelProperty(example = "Acetaminophen")
 	@Pattern(regexp = "^[a-zA-Z0-9_.-]*$", message = "Allowed Only Letters, Numbers And '-','_'. Eg: Sample_Medication")
 	private String name;
 
+	@ApiModelProperty(example = "10")
 	private int weight;
 
+	@ApiModelProperty(example = "AED321")
 	@Pattern(regexp = "^[A-Z0-9_.-]*$", message = "Allowed Only Uppercase Letters, Numbers And '_'. Eg: DEW_AE09")
 	private String code;
 

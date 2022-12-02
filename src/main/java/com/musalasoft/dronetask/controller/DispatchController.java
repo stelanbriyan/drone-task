@@ -22,7 +22,7 @@ public class DispatchController extends BaseController {
 	/**
 	 * -loading a drone with medication item
 	 */
-	@PutMapping("/{droneSerialNumber}")
+	@PostMapping("/{droneSerialNumber}")
 	public ResponseEntity<DroneMedicationBundleDTO> addMedicationToDrone(@Valid @RequestBody MedicationDTO medication,
 			@PathVariable String droneSerialNumber) {
 		return ResponseEntity.ok().body(this.dispatchService.addMedicationToDrone(medication, droneSerialNumber));
