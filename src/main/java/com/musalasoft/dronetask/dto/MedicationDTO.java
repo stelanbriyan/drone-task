@@ -1,6 +1,5 @@
 package com.musalasoft.dronetask.dto;
 
-import com.musalasoft.dronetask.domain.drone.Drone;
 import com.musalasoft.dronetask.domain.medication.Medication;
 import lombok.Builder;
 import lombok.Data;

@@ -1,9 +1,10 @@
 package com.musalasoft.dronetask.domain.drone;
 
 import com.musalasoft.dronetask.domain.BaseEntity;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Setter
 @Getter
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Table(name = "drone")
 public class Drone extends BaseEntity {
 
-	@Column(name = "serial_number")
+	@Column(name = "serial_number", unique = true)
 	private String serialNumber;
 
 	@Column(name = "model")

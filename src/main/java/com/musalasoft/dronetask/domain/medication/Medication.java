@@ -1,11 +1,12 @@
 package com.musalasoft.dronetask.domain.medication;
 
 import com.musalasoft.dronetask.domain.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Setter
 @Getter
@@ -19,7 +20,7 @@ public class Medication extends BaseEntity {
 	@Column(name = "weight")
 	private int weight;
 
-	@Column(name = "code")
+	@Column(name = "code", unique = true)
 	private String code;
 
 	// This field stores the URL of the image where it is located in S3

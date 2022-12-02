@@ -22,7 +22,7 @@ public class DroneController {
 		return ResponseEntity.ok().body(this.droneService.registerDrone(drone));
 	}
 
-	@GetMapping
+	@GetMapping("availability")
 	public void getAvailableDronesForLoading() {
 
 	}
@@ -32,7 +32,7 @@ public class DroneController {
 		return ResponseEntity.ok().body(this.droneService.getDrones());
 	}
 
-	@GetMapping
+	@GetMapping("checkdronebattery")
 	public void checkDroneBatteryLevel() {
 
 	}
