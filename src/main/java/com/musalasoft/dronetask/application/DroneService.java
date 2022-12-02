@@ -37,4 +37,12 @@ public class DroneService {
 				.orElseThrow(DroneNotFoundException::new);
 	}
 
+	public List<DroneDTO> getDronesByState(State state) {
+		return this.droneRepository.findAllByState(state).stream().map(DroneDTO::fromEntity).toList();
+	}
+
+	public Drone checkDroneBatteryLevel(String serialNumber) {
+		return this.findDroneBySerialNumber(serialNumber);
+	}
+
 }

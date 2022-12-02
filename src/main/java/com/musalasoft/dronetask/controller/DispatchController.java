@@ -17,18 +17,27 @@ public class DispatchController {
 		this.dispatchService = dispatchService;
 	}
 
+	/**
+	 * -loading a drone with medication items
+	 */
 	@PutMapping("/{droneSerialNumber}")
 	public ResponseEntity<DroneMedicationBundleDTO> addMedicationToDrone(@RequestBody MedicationDTO medication,
 			@PathVariable String droneSerialNumber) {
 		return ResponseEntity.ok().body(this.dispatchService.addMedicationToDrone(medication, droneSerialNumber));
 	}
 
+	/**
+	 * -upload medication image
+	 */
 	@PutMapping("/medication/image/upload/{medicationCode}")
 	public ResponseEntity<MedicationDTO> uploadMedicationImage(@RequestParam MultipartFile file,
 			@PathVariable String medicationCode) {
 		return ResponseEntity.ok().body(this.dispatchService.uploadMedicationImage(file, medicationCode));
 	}
 
+	/**
+	 * -checking loaded medication items for a given drone
+	 */
 	@GetMapping("/medications/{droneSerialNumber}")
 	public ResponseEntity<DroneMedicationBundleDTO> checkMedicationItemsByDrone(
 			@PathVariable String droneSerialNumber) {
