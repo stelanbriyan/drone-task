@@ -3,13 +3,11 @@ package com.musalasoft.dronetask.controller;
 import com.musalasoft.dronetask.application.DroneService;
 import com.musalasoft.dronetask.dto.DroneDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 @RequestMapping("v1/drone")
 public class DroneController {
 
@@ -25,8 +23,18 @@ public class DroneController {
 	}
 
 	@GetMapping
+	public void getAvailableDronesForLoading() {
+
+	}
+
+	@GetMapping
 	public ResponseEntity<List<DroneDTO>> getDrones() {
 		return ResponseEntity.ok().body(this.droneService.getDrones());
+	}
+
+	@GetMapping
+	public void checkDroneBatteryLevel() {
+
 	}
 
 }

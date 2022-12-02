@@ -3,11 +3,11 @@ package com.musalasoft.dronetask.application;
 import com.musalasoft.dronetask.domain.drone.Drone;
 import com.musalasoft.dronetask.domain.drone.DroneRepository;
 import com.musalasoft.dronetask.dto.DroneDTO;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class DroneService {
 
 	private final DroneRepository droneRepository;
