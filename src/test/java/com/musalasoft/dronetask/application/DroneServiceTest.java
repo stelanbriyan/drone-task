@@ -29,7 +29,8 @@ public class DroneServiceTest {
 
 	@BeforeEach
 	public void before() {
-		droneDTO = DroneDTO.builder().state(State.LOADING).serialNumber("D1").batteryCapacity(40).build();
+		droneDTO = DroneDTO.builder().state(State.LOADING).serialNumber("D1").weightLimit(20).batteryCapacity(40)
+				.build();
 	}
 
 	@Test
