@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("v1/drone")
-public class DroneController {
+public class DroneController extends BaseController {
 
 	private final DroneService droneService;
 

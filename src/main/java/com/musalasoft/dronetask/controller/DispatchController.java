@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("v1/dispatch")
-public class DispatchController {
+public class DispatchController extends BaseController {
 
 	private final DispatchService dispatchService;
 

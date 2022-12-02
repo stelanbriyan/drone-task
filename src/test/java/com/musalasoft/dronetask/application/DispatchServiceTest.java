@@ -48,7 +48,7 @@ public class DispatchServiceTest {
 		medicationDTO = MedicationDTO.builder().code("1").weight(10).build();
 
 		Drone drone = new Drone();
-        drone.setWeightLimit(30);
+		drone.setWeightLimit(30);
 		drone.setSerialNumber("D1");
 		droneMedicationBundle = new DroneMedicationBundle();
 		droneMedicationBundle.setDrone(drone);
