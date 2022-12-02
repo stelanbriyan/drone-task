@@ -28,8 +28,12 @@ public class DroneService {
 		return this.droneRepository.findAll().stream().map(DroneDTO::fromEntity).toList();
 	}
 
-	public Drone findDroneBySerialNumberForLoading(String serialNumber) {
-		return this.droneRepository.findOneBySerialNumberAndStateLoading(serialNumber)
+	public Drone findDroneBySerialNumber(String serialNumber) {
+		return this.droneRepository.findOneBySerialNumber(serialNumber).orElseThrow(DroneNotFoundException::new);
+	}
+
+	public Drone findDroneBySerialNumberAndState(String serialNumber, State state) {
+		return this.droneRepository.findBySerialNumberAndState(serialNumber, state)
 				.orElseThrow(DroneNotFoundException::new);
 	}
 

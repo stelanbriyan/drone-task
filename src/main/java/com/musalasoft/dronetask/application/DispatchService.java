@@ -1,6 +1,8 @@
 package com.musalasoft.dronetask.application;
 
+import com.musalasoft.dronetask.application.exception.DroneWeightLimitExceededException;
 import com.musalasoft.dronetask.application.exception.MedicationNotFoundException;
+import com.musalasoft.dronetask.domain.drone.State;
 import com.musalasoft.dronetask.domain.dronemedicationbundle.DroneMedicationBundle;
 import com.musalasoft.dronetask.domain.dronemedicationbundle.DroneMedicationBundleRepository;
 import com.musalasoft.dronetask.domain.medication.Medication;
@@ -39,10 +41,16 @@ public class DispatchService {
 		DroneMedicationBundle savedEntity = this.droneMedicationBundleRepository
 				.findByDrone_SerialNumber(droneSerialNumber).orElseGet(() -> {
 					DroneMedicationBundle entity = new DroneMedicationBundle();
-					entity.setDrone(droneService.findDroneBySerialNumberForLoading(droneSerialNumber));
+					entity.setDrone(droneService.findDroneBySerialNumberAndState(droneSerialNumber, State.LOADING));
 					entity.setMedications(new ArrayList<>());
 					return entity;
 				});
+
+		if (savedEntity.getMedications().stream().mapToInt(Medication::getWeight).sum()
+				+ medication.getWeight() > savedEntity.getDrone().getWeightLimit()) {
+			throw new DroneWeightLimitExceededException();
+		}
+
 		savedEntity.getMedications().add(medication.toEntity());
 		return DroneMedicationBundleDTO.fromEntity(this.droneMedicationBundleRepository.save(savedEntity));
 	}
@@ -54,6 +62,19 @@ public class DispatchService {
 
 		medication.setImageUrl(s3Adapter.upload(file));
 		return MedicationDTO.fromEntity(medication);
+	}
+
+	public DroneMedicationBundleDTO checkMedicationItemsByDrone(String droneSerialNumber) {
+		return DroneMedicationBundleDTO.fromEntity(getDroneMedicationBundle(droneSerialNumber));
+	}
+
+	private DroneMedicationBundle getDroneMedicationBundle(String droneSerialNumber) {
+		return this.droneMedicationBundleRepository.findByDrone_SerialNumber(droneSerialNumber).orElseGet(() -> {
+			DroneMedicationBundle entity = new DroneMedicationBundle();
+			entity.setDrone(droneService.findDroneBySerialNumber(droneSerialNumber));
+			entity.setMedications(new ArrayList<>());
+			return entity;
+		});
 	}
 
 }

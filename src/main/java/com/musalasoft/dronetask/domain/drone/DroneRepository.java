@@ -8,6 +8,8 @@ import java.util.Optional;
 @Repository
 public interface DroneRepository extends JpaRepository<Drone, String> {
 
-	Optional<Drone> findOneBySerialNumberAndStateLoading(String serialNumber);
+	Optional<Drone> findOneBySerialNumber(String serialNumber);
+
+	Optional<Drone> findBySerialNumberAndState(String serialNumber, State state);
 
 }

@@ -29,9 +29,10 @@ public class DispatchController {
 		return ResponseEntity.ok().body(this.dispatchService.uploadMedicationImage(file, medicationCode));
 	}
 
-	@PutMapping
-	public void checkMedicationItem() {
-
+	@GetMapping("/medications/{droneSerialNumber}")
+	public ResponseEntity<DroneMedicationBundleDTO> checkMedicationItemsByDrone(
+			@PathVariable String droneSerialNumber) {
+		return ResponseEntity.ok().body(this.dispatchService.checkMedicationItemsByDrone(droneSerialNumber));
 	}
 
 }
