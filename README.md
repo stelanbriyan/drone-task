@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/codecentric/springboot-sample-app.svg?branch=master)](https://travis-ci.org/codecentric/springboot-sample-app)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 ![Coverage](https://img.shields.io/badge/coverage-67%25-yellow)
+![Docker](https://img.shields.io/docker/pulls/stelanbriyan/drone-task)
 
 Drone Task is Java/Spring Boot Project
 

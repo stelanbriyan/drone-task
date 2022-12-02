@@ -18,6 +18,11 @@
 		<swagger.version>2.9.2</swagger.version>
 		<aws-java-sdk-s3.version>1.12.353</aws-java-sdk-s3.version>
 		<springfox-swagger-ui.version>3.0.0</springfox-swagger-ui.version>
+		<skip.docker>true</skip.docker>
+		<docker.image.url>stelanbriyan/drone-task:0.0.1</docker.image.url>
+		<docker.username>stelanbriyan</docker.username>
+		<docker.password>xyz</docker.password>
+		<start-class>com.musalasoft.dronetask.DroneTaskApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -68,9 +73,66 @@
 			<version>${aws-java-sdk-s3.version}</version>
 		</dependency>
 	</dependencies>
-
+	<profiles>
+		<profile>
+			<id>docker</id>
+			<properties>
+				<skip.docker>false</skip.docker>
+			</properties>
+		</profile>
+	</profiles>
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.musalasoft.dronetask.DroneTaskApplication</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<skip>${skip.docker}</skip>
+					<from>
+						<image>
+							openjdk:11-jre-slim@sha256:31a5d3fa2942eea891cf954f7d07359e09cf1b1f3d35fb32fedebb1e3399fc9e
+						</image>
+					</from>
+					<to>
+						<image>
+							${docker.image.url}
+						</image>
+						<auth>
+							<username>${docker.username}</username>
+							<password>${docker.password}</password>
+						</auth>
+					</to>
+					<allowInsecureRegistries>true</allowInsecureRegistries>
+				</configuration>
+				<executions>
+					<execution>
+						<id>build-tar</id>
+						<phase>install</phase>
+						<goals>
+							<goal>
+								buildTar
+							</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>package</id>
+						<phase>package</phase>
+						<goals>
+							<goal>
+								build
+							</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
