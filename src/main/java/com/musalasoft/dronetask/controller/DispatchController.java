@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("v1/dispatch")
 public class DispatchController extends BaseController {
@@ -21,7 +23,7 @@ public class DispatchController extends BaseController {
 	 * -loading a drone with medication item
 	 */
 	@PutMapping("/{droneSerialNumber}")
-	public ResponseEntity<DroneMedicationBundleDTO> addMedicationToDrone(@RequestBody MedicationDTO medication,
+	public ResponseEntity<DroneMedicationBundleDTO> addMedicationToDrone(@Valid @RequestBody MedicationDTO medication,
 			@PathVariable String droneSerialNumber) {
 		return ResponseEntity.ok().body(this.dispatchService.addMedicationToDrone(medication, droneSerialNumber));
 	}

@@ -9,6 +9,6 @@ public class ErrorResponseDTO {
 
 	private String path;
 
-	private String description;
+	private Object description;
 
 }

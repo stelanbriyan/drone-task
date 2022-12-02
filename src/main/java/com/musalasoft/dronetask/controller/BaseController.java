@@ -16,7 +16,7 @@ import java.util.Map;
 @Slf4j
 public class BaseController {
 
-	@ExceptionHandler({ RuntimeException.class, MethodArgumentNotValidException.class })
+	@ExceptionHandler({ MethodArgumentNotValidException.class })
 	public final ResponseEntity<Object> handleExceptions(Exception e, WebRequest request, Errors errors) {
 		String path = ((ServletWebRequest) request).getRequest().getRequestURI();
 
@@ -26,6 +26,14 @@ public class BaseController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(ErrorResponseDTO.builder().description(validationError).path(path).build());
 		}
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+				.body(ErrorResponseDTO.builder().description(e.getMessage()).path(path).build());
+	}
+
+	@ExceptionHandler({ RuntimeException.class })
+	public final ResponseEntity<Object> handleExceptions(Exception e, WebRequest request) {
+		String path = ((ServletWebRequest) request).getRequest().getRequestURI();
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 				.body(ErrorResponseDTO.builder().description(e.getMessage()).path(path).build());

@@ -4,14 +4,18 @@ import com.musalasoft.dronetask.domain.medication.Medication;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.Pattern;
+
 @Builder
 @Data
 public class MedicationDTO {
 
+	@Pattern(regexp = "^[a-zA-Z0-9_.-]*$", message = "Allowed Only Letters, Numbers And '-','_'. Eg: Sample_Medication")
 	private String name;
 
 	private int weight;
 
+	@Pattern(regexp = "^[A-Z0-9_.-]*$", message = "Allowed Only Uppercase Letters, Numbers And '_'. Eg: DEW_AE09")
 	private String code;
 
 	public Medication toEntity() {

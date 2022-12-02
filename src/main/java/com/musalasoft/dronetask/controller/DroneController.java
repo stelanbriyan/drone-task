@@ -6,6 +6,7 @@ import com.musalasoft.dronetask.dto.DroneDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class DroneController extends BaseController {
 	 * -registering a drone
 	 */
 	@PostMapping
-	public ResponseEntity<DroneDTO> registerDrone(@RequestBody DroneDTO drone) {
+	public ResponseEntity<DroneDTO> registerDrone(@Valid @RequestBody DroneDTO drone) {
 		return ResponseEntity.ok().body(this.droneService.registerDrone(drone));
 	}
 
