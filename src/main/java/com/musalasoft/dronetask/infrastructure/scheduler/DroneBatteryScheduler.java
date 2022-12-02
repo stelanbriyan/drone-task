@@ -17,6 +17,9 @@ public class DroneBatteryScheduler {
 		this.droneService = droneService;
 	}
 
+	/**
+	 * Introduce a periodic task to check drones battery levels
+	 */
 	@Scheduled(cron = "*/10 * * * * *")
 	public void checkBatteryLevel() {
 		log.info("Start -> drone battery check");

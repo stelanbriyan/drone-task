@@ -22,7 +22,7 @@ public class DroneService {
 
 	public DroneDTO registerDrone(DroneDTO drone) {
 		Drone entity = drone.toEntity();
-		entity.setState(State.LOADING);
+		entity.setState(drone.getBatteryCapacity() <= 25 ? State.IDLE : State.LOADING);
 		return DroneDTO.fromEntity(this.droneRepository.save(entity));
 	}
 
