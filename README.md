@@ -35,6 +35,9 @@ http://localhost:8080/swagger-ui/index.html
 
 ### Upload Image for Medication
 
+This is a separate API to upload an image file for existing medication. The file will be uploaded to `Amazon S3`
+and The stored file path will be saved to the `MySQL` database.
+
 ```bash
 curl --location --request PUT 'localhost:8080/v1/dispatch/medication/image/upload/1' \
 --form 'file=@"/C:/Users/stela/Pictures/336584.jpg"'
