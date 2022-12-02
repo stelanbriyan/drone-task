@@ -107,4 +107,13 @@ public class DispatchServiceTest {
 		assertEquals(drone.getDrone().getSerialNumber(), "D1");
 	}
 
+	@Test
+	void checkMedicationItemsByDrone_failure() {
+		when(droneMedicationBundleRepository.findByDrone_SerialNumber(anyString())).thenReturn(Optional.empty());
+		when(droneService.findDroneBySerialNumber(anyString())).thenReturn(
+				DroneDTO.builder().serialNumber("D1").weightLimit(30).batteryCapacity(100).build().toEntity());
+		DroneMedicationBundleDTO drone = this.dispatchService.checkMedicationItemsByDrone("D1");
+		assertEquals(drone.getDrone().getSerialNumber(), "D1");
+	}
+
 }
