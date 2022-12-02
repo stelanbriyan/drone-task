@@ -89,4 +89,22 @@ public class DispatchServiceTest {
 				() -> this.dispatchService.addMedicationToDrone(medicationDTO, "D1"));
 	}
 
+	@Test
+	void uploadMedicationImage_success() {
+		when(medicationRepository.findByCode(anyString())).thenReturn(Optional.of(medicationDTO.toEntity()));
+		when(s3Adapter.upload(any())).thenReturn("file path");
+		MedicationDTO medicationDTO = this.dispatchService.uploadMedicationImage(null, "1");
+		assertEquals(medicationDTO.getCode(), "1");
+	}
+
+	@Test
+	void checkMedicationItemsByDrone_success() {
+		when(droneMedicationBundleRepository.findByDrone_SerialNumber(anyString()))
+				.thenReturn(Optional.of(droneMedicationBundle));
+		when(droneService.findDroneBySerialNumberAndState(anyString(), any())).thenReturn(
+				DroneDTO.builder().serialNumber("D1").weightLimit(30).batteryCapacity(100).build().toEntity());
+		DroneMedicationBundleDTO drone = this.dispatchService.checkMedicationItemsByDrone("D1");
+		assertEquals(drone.getDrone().getSerialNumber(), "D1");
+	}
+
 }

@@ -11,13 +11,13 @@ import com.musalasoft.dronetask.domain.medication.MedicationRepository;
 import com.musalasoft.dronetask.dto.DroneMedicationBundleDTO;
 import com.musalasoft.dronetask.dto.MedicationDTO;
 import com.musalasoft.dronetask.infrastructure.adapter.S3Adapter;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
-@Repository
+@Service
 public class DispatchService {
 
 	private final MedicationRepository medicationRepository;
