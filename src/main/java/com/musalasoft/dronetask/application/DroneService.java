@@ -5,7 +5,9 @@ import com.musalasoft.dronetask.domain.drone.Drone;
 import com.musalasoft.dronetask.domain.drone.DroneRepository;
 import com.musalasoft.dronetask.domain.drone.State;
 import com.musalasoft.dronetask.dto.DroneDTO;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,6 +45,17 @@ public class DroneService {
 
 	public Drone checkDroneBatteryLevel(String serialNumber) {
 		return this.findDroneBySerialNumber(serialNumber);
+	}
+
+	@Transactional
+	public String[] updateDroneStateWhenBatteryLow() {
+		List<Drone> drones = this.droneRepository.findAllByBatteryCapacityLessThanEqualAndStateEquals(25,
+				State.LOADING);
+		String[] serialNumbers = drones.stream().map(Drone::getSerialNumber).toArray(String[]::new);
+		if (this.droneRepository.updateDroneState(serialNumbers, State.LOADED) > 0) {
+			return serialNumbers;
+		}
+		return Strings.EMPTY_ARRAY;
 	}
 
 }

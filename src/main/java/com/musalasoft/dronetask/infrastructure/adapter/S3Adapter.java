@@ -1,4 +1,4 @@
-package com.musalasoft.dronetask.infrastructure;
+package com.musalasoft.dronetask.infrastructure.adapter;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
