@@ -14,9 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("v1/dispatch")
-public class DispatchController extends BaseController {
+public class DispatchController {
 
-	private List contentTypes = List.of("image/png", "image/jpg", "image/jpeg");
+	private List<String> contentTypes = List.of("image/png", "image/jpg", "image/jpeg");
 
 	private final DispatchService dispatchService;
 

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@ControllerAdvice
 public class BaseController {
 
 	@ExceptionHandler({ MethodArgumentNotValidException.class })
@@ -21,8 +23,9 @@ public class BaseController {
 		String path = ((ServletWebRequest) request).getRequest().getRequestURI();
 
 		if (errors.hasErrors()) {
-			List<Map<String, String>> validationError = errors.getFieldErrors().stream()
-					.map(er -> Map.of("field", er.getField(), "message", er.getDefaultMessage())).toList();
+			List<Map<String, String>> validationError = errors.getFieldErrors().stream().map(er -> Map.of("field",
+					er.getField(), "message", er.getDefaultMessage() == null ? "error" : er.getDefaultMessage()))
+					.toList();
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(ErrorResponseDTO.builder().description(validationError).path(path).build());
 		}

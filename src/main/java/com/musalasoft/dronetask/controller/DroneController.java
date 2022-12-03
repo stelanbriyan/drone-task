@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("v1/drone")
-public class DroneController extends BaseController {
+public class DroneController {
 
 	private final DroneService droneService;
 
@@ -31,7 +31,6 @@ public class DroneController extends BaseController {
 
 	/**
 	 * -checking drone battery level for given drone
-	 * @return
 	 */
 	@ApiOperation(value = "Checking drone battery level for the given drone", response = Integer.class)
 	@GetMapping("checkbattery/{serialNumber}")
