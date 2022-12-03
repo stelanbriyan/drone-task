@@ -57,6 +57,17 @@ public class DispatchControllerTest {
 	}
 
 	@Test
+	void addMedicationToDrone_failure() throws Exception {
+		medicationDTO = MedicationDTO.builder().code("dEW_AE09").name("Sample_Medication").weight(10).build();
+		String json = objectMapper.writeValueAsString(medicationDTO);
+
+		doReturn(droneMedicationBundleDTO).when(dispatchService).addMedicationToDrone(medicationDTO, "D1");
+
+		mockMvc.perform(post(baseUrl.concat("/D1")).content(json).contentType(MediaType.APPLICATION_JSON))
+				.andDo(print()).andExpect(status().isBadRequest());
+	}
+
+	@Test
 	void checkMedicationItemsByDrone_success() throws Exception {
 		doReturn(droneMedicationBundleDTO).when(dispatchService).checkMedicationItemsByDrone("D1");
 
@@ -67,7 +78,7 @@ public class DispatchControllerTest {
 	@Test
 	void uploadMedicationImage_success() throws Exception {
 		medicationDTO = MedicationDTO.builder().code("DEW_AE09").name("Sample_Medication").weight(10).build();
-		MockMultipartFile file = new MockMultipartFile("file", "hello.txt", MediaType.TEXT_PLAIN_VALUE,
+		MockMultipartFile file = new MockMultipartFile("file", "image.jpg", MediaType.IMAGE_JPEG_VALUE,
 				"Hello, World!".getBytes());
 
 		doReturn(medicationDTO).when(dispatchService).uploadMedicationImage(any(), anyString());
@@ -75,6 +86,18 @@ public class DispatchControllerTest {
 		mockMvc.perform(multipart(baseUrl.concat("/medication/image/upload/D1")).file(file)
 				.contentType(MediaType.MULTIPART_FORM_DATA)).andDo(print()).andExpect(status().isOk())
 				.andExpect(jsonPath("$.code").value("DEW_AE09"));
+	}
+
+	@Test
+	void uploadMedicationImage_failure() throws Exception {
+		medicationDTO = MedicationDTO.builder().code("DEW_AE09").name("Sample_Medication").weight(10).build();
+		MockMultipartFile file = new MockMultipartFile("file", "hello.txt", MediaType.TEXT_PLAIN_VALUE,
+				"Hello, World!".getBytes());
+
+		doReturn(medicationDTO).when(dispatchService).uploadMedicationImage(any(), anyString());
+
+		mockMvc.perform(multipart(baseUrl.concat("/medication/image/upload/D1")).file(file)
+				.contentType(MediaType.MULTIPART_FORM_DATA)).andDo(print()).andExpect(status().isBadRequest());
 	}
 
 }
