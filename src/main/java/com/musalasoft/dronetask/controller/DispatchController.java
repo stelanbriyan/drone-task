@@ -35,7 +35,7 @@ public class DispatchController extends BaseController {
 	 * -upload medication image
 	 */
 	@ApiOperation(value = "Upload medication image", response = List.class)
-	@PutMapping("/medication/image/upload/{medicationCode}")
+	@PostMapping("/medication/image/upload/{medicationCode}")
 	public ResponseEntity<MedicationDTO> uploadMedicationImage(@RequestParam MultipartFile file,
 			@PathVariable String medicationCode) {
 		return ResponseEntity.ok().body(this.dispatchService.uploadMedicationImage(file, medicationCode));

@@ -40,6 +40,6 @@ This is a separate API to upload an image file for existing medication. The file
 and The stored file path will be saved to the `MySQL` database.
 
 ```bash
-curl --location --request PUT 'localhost:8080/v1/dispatch/medication/image/upload/1' \
+curl --location --request POST 'localhost:8080/v1/dispatch/medication/image/upload/1' \
 --form 'file=@"/C:/Users/stela/Pictures/336584.jpg"'
 ```
