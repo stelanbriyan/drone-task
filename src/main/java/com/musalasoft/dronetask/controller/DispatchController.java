@@ -6,7 +6,6 @@ import com.musalasoft.dronetask.dto.DroneMedicationBundleDTO;
 import com.musalasoft.dronetask.dto.MedicationDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
