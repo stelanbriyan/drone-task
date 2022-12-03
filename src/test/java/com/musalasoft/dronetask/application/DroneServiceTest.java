@@ -58,4 +58,11 @@ public class DroneServiceTest {
 		assertEquals(drone.getBatteryCapacity(), 40);
 	}
 
+	@Test
+	void registerDrone_success() {
+		when(droneRepository.save(any())).thenReturn(droneDTO.toEntity());
+		DroneDTO drone = this.droneService.registerDrone(droneDTO);
+		assertEquals(drone.getSerialNumber(), "D1");
+	}
+
 }
