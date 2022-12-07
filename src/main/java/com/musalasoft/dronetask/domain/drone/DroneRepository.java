@@ -1,5 +1,7 @@
 package com.musalasoft.dronetask.domain.drone;
 
+import com.musalasoft.dronetask.application.changelog.ChangeLog;
+import com.musalasoft.dronetask.application.changelog.ChangeLogType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +13,10 @@ import java.util.Optional;
 
 @Repository
 public interface DroneRepository extends JpaRepository<Drone, String> {
+
+	@Override
+	@ChangeLog(type = ChangeLogType.Drone)
+	<S extends Drone> S save(S entity);
 
 	Optional<Drone> findOneBySerialNumber(String serialNumber);
 
